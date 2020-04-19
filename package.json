@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "xo",
-    "start": "babel-node src/server.js",
+    "start": "nodemon --exec babel-node src/server.js",
     "build": "babel src --out-dir dist --copy-files",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepush": "npm run lint"
@@ -60,6 +60,7 @@
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.5",
     "babel-eslint": "^10.1.0",
+    "nodemon": "^2.0.3",
     "xo": "^0.29.1"
   }
 }
