@@ -4,11 +4,19 @@ import {userService} from '../services';
 const userRoutes = express.Router();
 
 /**
- * [GET] /
- * Return an hello string
+ * [POST] /login
+ * Return a token
  */
-userRoutes.get('/', (req, res) => {
-  res.send(userService.helloUser());
+userRoutes.post('/login', (req, res) => {
+  userService.login(req.body)
+    .then(token => {
+      res.status(200);
+      res.send(token);
+    })
+    .catch(() => {
+      res.status(403);
+      res.send('Credentials don\'t match');
+    });
 });
 
 export default userRoutes;
