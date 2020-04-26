@@ -12,7 +12,7 @@ const login = user => {
     where: {email}
   })
     .then(userDb => {
-      if (user) {
+      if (userDb) {
         return bcrypt.compare(password, userDb.password)
           .then(passwordsMatched => {
             if (passwordsMatched) {
@@ -26,6 +26,8 @@ const login = user => {
             throw new Error('Credentials error');
           });
       }
+
+      throw new Error('Credentials error');
     });
 };
 
