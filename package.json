@@ -63,6 +63,7 @@
     "@babel/node": "7.8.7",
     "@babel/preset-env": "7.9.5",
     "babel-eslint": "10.1.0",
+    "cors": "2.8.5",
     "nodemon": "2.0.3",
     "xo": "0.29.1"
   }
