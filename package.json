@@ -18,6 +18,8 @@
     ],
     "rules": {
       "unicorn/filename-case": "off",
+      "func-call-spacing": 0,
+      "prefer-regex-literals": 0,
       "padding-line-between-statements": [
         "error",
         {

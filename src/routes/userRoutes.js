@@ -13,12 +13,12 @@ userRoutes.post('/login', (req, res) => {
       res.status(200);
       res.send(token);
     })
-    .catch(error => {
+    .catch(() => {
       res.status(403);
-      res.send({
-        code: error.code,
-        message: error.message
-      })
+      res.send(({
+        code: 'login_failed',
+        message: 'Login failed'
+      }));
     });
 });
 
@@ -32,12 +32,12 @@ userRoutes.post('/registration', (req, res) => {
       res.status(200);
       res.send(token);
     })
-    .catch(error => {
+    .catch(() => {
       res.status(403);
       res.send({
-        code: error.code,
-        message: error.message
-      })
+        code: 'registration_failed',
+        message: 'registration failed'
+      });
     });
 });
 
