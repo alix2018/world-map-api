@@ -1,6 +1,6 @@
 {
   "name": "world-map-api",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,6 +18,8 @@
     ],
     "rules": {
       "unicorn/filename-case": "off",
+      "func-call-spacing": 0,
+      "prefer-regex-literals": 0,
       "padding-line-between-statements": [
         "error",
         {
@@ -63,6 +65,7 @@
     "@babel/node": "7.8.7",
     "@babel/preset-env": "7.9.5",
     "babel-eslint": "10.1.0",
+    "cors": "2.8.5",
     "nodemon": "2.0.3",
     "xo": "0.29.1"
   }

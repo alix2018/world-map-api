@@ -15,7 +15,29 @@ userRoutes.post('/login', (req, res) => {
     })
     .catch(() => {
       res.status(403);
-      res.send('Credentials don\'t match');
+      res.send(({
+        code: 'login_failed',
+        message: 'Login failed'
+      }));
+    });
+});
+
+/**
+ * [POST] /registration
+ * Return a token
+ */
+userRoutes.post('/registration', (req, res) => {
+  userService.registration(req.body)
+    .then(token => {
+      res.status(200);
+      res.send(token);
+    })
+    .catch(() => {
+      res.status(403);
+      res.send({
+        code: 'registration_failed',
+        message: 'registration failed'
+      });
     });
 });
 
