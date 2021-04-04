@@ -7,38 +7,26 @@ const userRoutes = express.Router();
  * [POST] /login
  * Return a token
  */
-userRoutes.post('/login', (req, res) => {
+userRoutes.post('/login', (req, res, next) => {
   userService.login(req.body)
     .then(token => {
       res.status(200);
       res.send(token);
     })
-    .catch(() => {
-      res.status(403);
-      res.send(({
-        code: 'login_failed',
-        message: 'Login failed'
-      }));
-    });
+    .catch(next);
 });
 
 /**
  * [POST] /registration
  * Return a token
  */
-userRoutes.post('/registration', (req, res) => {
+userRoutes.post('/registration', (req, res, next) => {
   userService.registration(req.body)
     .then(token => {
       res.status(200);
       res.send(token);
     })
-    .catch(() => {
-      res.status(403);
-      res.send({
-        code: 'registration_failed',
-        message: 'registration failed'
-      });
-    });
+    .catch(next);
 });
 
 export default userRoutes;
