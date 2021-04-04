@@ -10,3 +10,6 @@ files
 .jshintrc
 /docs
 /postgres/data
+helper.md
+docker-compose.prod.yml
+worldmappieapi.tar
