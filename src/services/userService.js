@@ -1,10 +1,11 @@
 import db from '../db/models';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
+import AppError from '../error';
 
 /**
-* Generates a JWT signed token
-*/
+ * Generates a JWT signed token
+ */
 const generateToken = email => {
   return jwt.sign({email}, 'aB123456@', {
     expiresIn: '30d',
@@ -13,9 +14,9 @@ const generateToken = email => {
 };
 
 /**
-* Check user email address
-* and returns the token
-*/
+ * Check user email address
+ * and returns the token
+ */
 export const login = user => {
   const {email, password} = user;
   return db.User.findOne({
@@ -30,35 +31,28 @@ export const login = user => {
               const token = generateToken(userDb.email);
               return {token};
             }
-            throw new Error({
-              code: 'credentials_don\'t_match',
-              message: 'The cerdentials don\'t match'
-            });
-          })
-          .catch(() => {
-            throw new Error({
-              code: 'generic_error',
-              message: 'generic error'
+            throw new AppError({
+              code: 'credentials_do_not_match',
+              message: 'The email or the password is incorrect'
             });
           });
       }
 
-      throw new Error({
-        code: 'email_doesn\'t_exist',
-        message: 'The email address doesn\'t exist'
+      throw new AppError({
+        code: 'email_does_not_exist',
+        message: 'The email address is not found'
       });
     });
 };
 
 /**
-* Hash the password
-* and add username and password to the User table
-*/
+ * Hash the password
+ * and add username and password to the User table
+ */
 export const registration = user => {
   const {email, password} = user;
   const passwordRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,32})');
 
-  // Check if password match minimum requirements
   if (passwordRegex.test(password)) {
     return bcrypt.hash(password, 10)
       .then(passwordHashed => {
@@ -67,21 +61,14 @@ export const registration = user => {
           password: passwordHashed
         })
           .then(() => {
-            // Return token if successful
             const token = generateToken(email);
             return {token};
-          })
-          .catch(error => {
-            throw new Error({
-              code: 'unprocessable_entity',
-              message: error.errors[0].message // Sequelize error
-            });
           });
       });
   }
 
-  throw new Error({
+  throw new AppError({
     code: 'invalid_password',
-    message: 'The password doesn\'t match the minimum requirements'
+    message: 'The password does not match the minimum requirements'
   });
 };
